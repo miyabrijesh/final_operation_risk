@@ -50,7 +50,7 @@ This project builds a **decision-support system** to:
 - Fraudulent returns take **3.6× longer** to process  
 - Fraud rate increases from **16.9% → 48.8%** under high warehouse load  
 - **88% of fraud cases require manual inspection**  
-- Certain return reasons are **exclusive fraud indicators**  
+- Certain return reasons act as strong fraud indicators  
 - Fraud patterns are **non-linear in nature**  
 
 ---
@@ -58,28 +58,28 @@ This project builds a **decision-support system** to:
 # 🔍 Inferences
 
 1. **Fraud is the primary driver of operational delay**  
-   Fraudulent returns take significantly longer to process (≈3.6×), proving that fraud directly impacts warehouse efficiency rather than just financial loss.
+   Fraudulent returns take significantly longer to process, proving fraud impacts operations beyond financial loss.
 
 2. **Warehouse load amplifies fraud risk**  
-   Fraud rates increase drastically during high-load conditions (16.9% → 48.8%), suggesting that fraudsters exploit peak operational stress.
+   Fraud rates increase sharply during peak load, indicating exploitation of operational stress.
 
 3. **Manual inspection bottleneck**  
-   Nearly **88% of fraudulent returns require human inspection**, creating a resource bottleneck and slowing down overall processing.
+   A large proportion of fraud cases require manual or intensive inspection, reducing system efficiency.
 
-4. **Strong rule-based fraud signals exist**  
-   Certain return reasons (e.g., empty box, fake defect claims) appear exclusively in fraud cases, enabling immediate rule-based filtering before ML intervention.
+4. **Fraud detection is non-linear**  
+   Logistic Regression performed poorly (AUC ≈ 0.57), indicating complex feature interactions.
 
-5. **Fraud detection is non-linear**  
-   Logistic Regression performed poorly (AUC ≈ 0.57), indicating that fraud patterns cannot be captured using linear decision boundaries.
+5. **Tree-based models are more effective**  
+   Decision Tree and Random Forest significantly outperform linear models.
 
-6. **Tree-based models are more effective**  
-   Random Forest achieved high performance (AUC ≈ 0.96), making it suitable for real-world deployment.
+6. **Random Forest is the most reliable model**  
+   It provides the best balance of precision, recall, and ROC-AUC without overfitting.
 
-7. **Class imbalance must be handled carefully**  
-   Fraud cases are fewer but critical. Applying SMOTE only on training data ensured balanced learning without evaluation bias.
+7. **Class imbalance handling is critical**  
+   SMOTE ensured fair learning while maintaining real-world evaluation integrity.
 
 8. **Real-world validation supports simulation**  
-   The Olist dataset (~4.6% fraud rate) aligns with expected industry benchmarks, validating the simulated dataset’s realism.
+   Olist dataset (~4.6% fraud rate) aligns with industry expectations.
 
 ---
 
@@ -104,7 +104,14 @@ This project builds a **decision-support system** to:
 | Logistic Regression | 0.58 | 0.49 | 0.57 |
 | Decision Tree | 0.86 | 0.76 | 0.89 |
 | Random Forest | **0.88** | **0.82** | **0.96** |
-| XGBoost | 1.00 | 1.00 | 1.00 |
+
+---
+
+# ⚠️ Note on XGBoost
+
+XGBoost initially achieved perfect performance (100% across all metrics). However, this indicated **overfitting due to the small test set size (N=50)**.  
+
+To ensure realistic and generalizable results, it was excluded from final evaluation, and **Random Forest was selected as the production model**.
 
 ---
 
@@ -124,6 +131,7 @@ This project builds a **decision-support system** to:
 - Exploratory Data Analysis (EDA)  
 - Feature encoding  
 - Train-test split  
+- SMOTE for class balancing  
 - Model training & comparison  
 
 ### Evaluation Metrics:
@@ -148,7 +156,8 @@ This project builds a **decision-support system** to:
 - SMOTE applied only on training data (to avoid data leakage)  
 - Post-decision variables removed from features  
 - Real-world dataset used for validation  
-- Non-linear models preferred over linear  
+- Linear models rejected due to poor performance  
+- Tree-based ensemble model selected for deployment  
 
 ---
 
@@ -173,7 +182,6 @@ This project builds a **decision-support system** to:
 - Python  
 - Streamlit  
 - Scikit-learn  
-- XGBoost  
 - Pandas  
 - NumPy  
 - Matplotlib / Seaborn  
@@ -183,17 +191,17 @@ This project builds a **decision-support system** to:
 # 🚀 Key Contribution
 
 This project integrates:
-- **Operations Analytics** (efficiency, load handling)  
+- **Operations Analytics** (efficiency, workload optimization)  
 - **Fraud Analytics** (risk detection)  
 
-→ Delivering a **real-time decision-support system** for e-commerce warehouses  
+→ Delivering a **practical decision-support system** for warehouse management  
 
 ---
 
 # 📌 Conclusion
 
 Fraud is not just a financial issue — it is a **critical operational bottleneck**.  
-By combining fraud detection with warehouse decision logic, this system improves efficiency, reduces delays, and optimizes resource allocation.
+By integrating fraud detection with warehouse decision-making, this system improves efficiency, reduces delays, and optimizes resource allocation.
 
 ---
 
